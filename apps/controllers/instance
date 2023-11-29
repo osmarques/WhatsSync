@@ -1,0 +1,73 @@
+import requests
+
+#Substitua 'sua_chave_api' e 'seu_token' pelos valores reais
+api_key = "123"
+token = "otavio"
+host = "http://localhost:3333"
+
+
+def init_instance(api_key, token):
+
+    url = f"{host}/instance/init?key={api_key}&token={token}"
+    payload = ""
+    headers = {}
+    response = requests.get(url, headers=headers, data=payload)
+    return response.text
+
+
+def scan_qr(api_key):
+
+    url = f"{host}/instance/qr?key={api_key}"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
+
+def get_qr_base64(api_key):
+
+    url = f"{host}/instance/qrbase64?key={api_key}"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
+
+def instace_inf(api_key):
+    
+    url = f"localhost:3333/instance/info?key={api_key}"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
+
+def restore_all_isntances():
+
+    url = f"{host}/instance/restore"
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
+
+def delete_instance(api_key):
+
+    url = f"{host}/instance/delete?key={api_key}"
+    payload = {}
+    headers = {}
+    response = requests.request("DELETE", url, headers=headers, data=payload)
+    print(response.text)
+
+def logout_instances(api_key):
+
+    url = f"{host}/instance/logout?key=123"
+    payload = {}
+    headers = {}
+    response = requests.request("DELETE", url, headers=headers, data=payload)
+    print(response.text)
+
+def list_all_sessions(api_key):
+    
+    url = f"{host}/instance/list"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    return response.text

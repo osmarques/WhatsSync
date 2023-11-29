@@ -1,0 +1,208 @@
+import requests
+import json
+
+api_key = "123"
+token = "otavio"
+host = "http://localhost:3333"
+
+
+def send_text(number,message):
+
+    url = f"{host}/message/text?key={api_key}"
+    payload = f'id={number}&message={message}'
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
+
+def send_image():
+    url = f"{host}/message/image?key={api_key}"
+
+    payload = {'id': '5514996884291','caption': 'teste'}
+    files=[('file',('Captura de tela 2023-10-19 093433.png',open('/C:/Users/Win11/Pictures/Screenshots/Captura de tela 2023-10-19 093433.png','rb'),'image/png'))]
+    headers = {}
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    print(response.text)
+
+def send_video():
+
+    url = f"{host}/message/image?key={api_key}"
+    payload = {'id': '5514996884291',
+    'caption': 'teste'}
+    files=[
+    ('file',('Captura de tela 2023-10-19 093433.png',open('/C:/Users/Win11/Pictures/Screenshots/Captura de tela 2023-10-19 093433.png','rb'),'image/png'))
+    ]
+    headers = {}
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    print(response.text)
+
+def send_audio():
+    
+    url = f"{host}/message/audio?key={api_key}"
+
+    payload = {'id': '5514997763105'}
+    files=[
+    ('file',('2audio.mp3',open('/C:/Users/Win11/Desktop/2audio.mp3','rb'),'audio/mpeg'))
+    ]
+    headers = {}
+
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+    print(response.text)
+
+def send_document ():
+
+    url = f"{host}/message/doc?key={api_key}"
+
+    payload = {'id': '',
+    'filename': ''}
+    files=[
+    ('file',('file',open('/path/to/file','rb'),'application/octet-stream'))
+    ]
+    headers = {}
+
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    print(response.text)
+
+def send_file_url():
+    url = f"{host}/message/mediaurl?key={api_key}"
+
+    payload = 'id=&url=&type=&mimetype=&caption='
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+
+def send_button():
+
+    url = f"{host}/message/button?key={api_key}"
+    payload = json.dumps({
+    "id": "",
+    "btndata": {
+        "text": "title Head",
+        "buttons": [
+        {
+            "type": "replyButton",
+            "title": "Reply this text (REPLY)"
+        },
+        {
+            "type": "urlButton",
+            "title": "Click me (URL)",
+            "payload": "https://google.com"
+        },
+        {
+            "type": "callButton",
+            "title": "Click to call (CALL)",
+            "payload": "918788889688"
+        }
+        ],
+        "footerText": "title footer"
+    }
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+
+def send_contact():
+    url = f"{host}/message/contact?key={api_key}"
+
+    payload = json.dumps({
+    "id": "",
+    "vcard": {
+        "fullName": "john doe",
+        "displayName": "johndoe",
+        "organization": "Men In Black",
+        "phoneNumber": "919999999999"
+    }
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+
+def send_list ():
+
+    url = f"{host}/message/list?key={api_key}"
+
+    payload = json.dumps({
+    "id": "",
+    "msgdata": {
+        "buttonText": "Button Text",
+        "text": "Middle Text",
+        "title": "Head Title",
+        "description": "Footer Description",
+        "sections": [
+        {
+            "title": "title",
+            "rows": [
+            {
+                "title": "Title Option 1",
+                "description": "Option Description",
+                "rowId": "string"
+            }
+            ]
+        }
+        ],
+        "listType": 0
+    }
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+
+def set_status():
+    url = f"{host}message/setstatus?key={api_key}"
+
+    payload = {'status': ''}
+    files=[
+
+    ]
+    headers = {}
+
+    response = requests.request("PUT", url, headers=headers, data=payload, files=files)
+
+    print(response.text)
+
+def send_button_with_media():
+
+    url = f"{host}/message/MediaButton?key={api_key}"
+
+    payload = json.dumps({
+    "id": "",
+    "btndata": {
+        "text": "Title of Message",
+        "buttons": [
+        {
+            "type": "replyButton",
+            "title": "this button reply"
+        },
+        {
+            "type": "callButton",
+            "title": "this button calls",
+            "payload": "91999999999"
+        }
+        ],
+        "footerText": "Footer text",
+        "image": "https://picsum.photos/536/354",
+        "mediaType": "image",
+        "mimeType": "image/jpeg"
+    }
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webhook Receiver</title>
+</head>
+<body>
+
+  <h1>Webhook Receiver</h1>
+  <div id="messages"></div>
+
+  <script>
+    function displayMessage(message) {
+      const messagesDiv = document.getElementById('messages');
+      const messageDiv = document.createElement('div');
+      messageDiv.textContent = JSON.stringify(message);
+      messagesDiv.appendChild(messageDiv);
+    }
+
+    // URL do seu webhook
+    const webhookUrl = 'https://webhook.site/a1b8fb03-d9b1-4ee5-95e6-bf388f788105';
+
+    // Faz uma solicitação para o webhook usando Fetch
+    fetch(webhookUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Exibe a mensagem recebida
+        displayMessage(data);
+      })
+      .catch(error => {
+        console.error('Erro ao recuperar a mensagem do webhook:', error);
+      });
+  </script>
+
+</body>
+</html>
